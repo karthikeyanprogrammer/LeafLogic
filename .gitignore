@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local configuration and data
+.env
+.env.*
+!.env.example
+backend/plants.db
+
+# Frontend dependencies, builds, and logs
+frontend/node_modules/
+frontend/dist/
+frontend/*.log
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
