@@ -9,11 +9,16 @@ venv/
 .env.*
 !.env.example
 backend/plants.db
+backend/uploads/
 
 # Frontend dependencies, builds, and logs
 frontend/node_modules/
 frontend/dist/
 frontend/*.log
+frontend/.npm-cache/
+
+# Temporary working files
+.tmp/
 
 # OS and editor files
 .DS_Store

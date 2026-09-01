@@ -65,6 +65,34 @@ Images are only stored as visual records so users can compare plant appearance o
 
 ---
 
+## Deploying on Vercel
+
+Deploy this repository as two Vercel projects:
+
+### 1. Backend API
+
+- Import this repository and set the Root Directory to `backend`.
+- Add a hosted PostgreSQL integration or set `DATABASE_URL` manually.
+- Set `JWT_SECRET_KEY` to a long random value.
+- Set `FRONTEND_URLS` to the production frontend URL. Multiple URLs can be comma-separated.
+- Optionally set `ALLOW_VERCEL_PREVIEWS=true` while testing preview deployments.
+
+The API health check is available at `/health`.
+
+### 2. Frontend
+
+- Import this repository a second time and set the Root Directory to `frontend`.
+- Set `VITE_API_URL` to the backend deployment URL, without a trailing slash.
+- Deploy after the backend URL is available.
+
+The included `vercel.json` files configure FastAPI, Vite, and SPA route fallback.
+
+### Storage note
+
+SQLite remains available for local development only. Production should use PostgreSQL because Vercel Functions do not provide persistent local disk storage. Image uploads currently use local disk and are therefore temporary on Vercel; use persistent object storage before relying on uploaded images in a production environment.
+
+---
+
 ## Data Users Can Log
 
 For each plant log, users may enter:

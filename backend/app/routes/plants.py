@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 from uuid import uuid4
 
@@ -11,7 +12,9 @@ from app.health_score import calculate_health_score
 from app.species_library import SPECIES_LIBRARY, get_species_profile, list_species_options, normalize_species_key
 
 router = APIRouter()
-UPLOAD_DIR = Path("uploads")
+UPLOAD_DIR = Path(
+    os.getenv("UPLOAD_DIR", "/tmp/uploads" if os.getenv("VERCEL") else "uploads")
+)
 
 
 # ---------- DATABASE ----------
@@ -149,7 +152,7 @@ def upload_plant_image(
     if extension not in {".jpg", ".jpeg", ".png", ".webp", ".gif"}:
         extension = ".jpg"
 
-    UPLOAD_DIR.mkdir(exist_ok=True)
+    UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
     filename = f"plant-{plant_id}-{uuid4().hex}{extension}"
     destination = UPLOAD_DIR / filename
 

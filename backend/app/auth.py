@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+import os
 
 import bcrypt
 from jose import JWTError, jwt
@@ -9,7 +10,11 @@ from sqlalchemy.orm import Session
 from app.database import SessionLocal
 from app import models
 
-SECRET_KEY = "supersecretkey"
+SECRET_KEY = os.getenv("JWT_SECRET_KEY")
+if not SECRET_KEY:
+    if os.getenv("VERCEL"):
+        raise RuntimeError("JWT_SECRET_KEY must be configured in production")
+    SECRET_KEY = "local-development-secret-change-me"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
 
